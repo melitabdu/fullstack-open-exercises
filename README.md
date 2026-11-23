@@ -1,16 +1,34 @@
-# Full Stack Open
 
-My Full Stack Open course exercises and projects.
-
-## Part 0: Fundamentals of Web Apps
-
-### 0.4: New note diagram
+# Exercise 0.4: New note diagram
 
 ```mermaid
 sequenceDiagram
     participant browser
     participant server
-    browser->>server: POST /exampleapp/new_note
-    server-->>browser: 302 Redirect to /exampleapp/notes
-    browser->>server: GET /exampleapp/notes
+
+    Note right of browser: User writes a note and clicks Save
+
+    browser->>server: POST /new_note
+    activate server
+    Note right of server: Server saves the new note
+    server-->>browser: HTTP 302 Redirect to /notes
+    deactivate server
+
+    browser->>server: GET /notes
+    activate server
     server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET /main.css
+    server-->>browser: CSS file
+
+    browser->>server: GET /main.js
+    server-->>browser: JavaScript file
+
+    browser->>server: GET /data.json
+    activate server
+    server-->>browser: JSON containing notes
+    deactivate server
+
+    Note right of browser: Browser displays updated notes
+```
